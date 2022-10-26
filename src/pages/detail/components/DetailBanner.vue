@@ -1,25 +1,50 @@
 <template>
     <div>
-        <div class="banner">
+        <div class="banner" @click="handleBannerClick">
             <img :src="bannerImg" alt="" class="banner-img">
             <div class="banner-info">
                 <div class="banner-title">
-                    {{signtName}}
+                    {{sightName}}
                 </div>
                 <div class="banner-number">
                     <span class="iconfont banner-icon">&#xe692;</span>
-                    {{bannerImgs.length}}
+                    {{bannerImgs?.length}}
                 </div>
             </div>
         </div>
+        <fade-animation>
+            <common-gallery
+                :imgs="bannerImgs"
+                v-show="showGallery"
+                @close="handleGallaryClose"
+            >
+            </common-gallery>
+        </fade-animation>
     </div>
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import CommonGallery from '@/utlites/CommonGallery.vue'
+import FadeAnimation from '@/utlites/FadeAnimation.vue'
+import {defineProps, toRefs, ref} from 'vue'
+const props = defineProps({
+    sightName: String,
+    bannerImg: String,
+    bannerImgs: Array,
+});
 
-const signtName =ref('a');
-const bannerImgs = ref([]);
+const {sightName,bannerImg, bannerImgs} = toRefs(props);
+
+const showGallery = ref(false);
+
+const handleGallaryClose = () =>{
+    showGallery.value = false;
+};
+
+const handleBannerClick = () =>{
+    showGallery.value = true;
+}
+
 </script>
 
 <style lang="stylus" scoped>

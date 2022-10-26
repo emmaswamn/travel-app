@@ -86,7 +86,7 @@ onMounted (() => {
         click:true,
         observeDOM: true
     });
-    console.log(scroll);
+    // console.log(scroll);
     // console.log(divs);
 });
 </script>
